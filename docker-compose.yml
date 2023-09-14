@@ -1,0 +1,45 @@
+version: '3.3'
+services:
+  database:
+    container_name: db_service
+    image: mysql:8.0.32
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'backend'
+      MYSQL_PASSWORD: 'qwerty'
+      MYSQL_ROOT_PASSWORD: 'superuser'
+      MYSQL_USER_PRIVILEGES: "db.*:ALL"
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - '3306:3306'
+    command: --init-file /docker-entrypoint-initdb.d/init.sql
+    expose:
+      - '3306'
+    volumes:
+      - backend_db:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - backend
+  backend_api:
+    container_name: backend_api
+    image: backend_api:latest
+    build: .
+    restart: always
+    # environment:
+    #   - DB_URL=root:superuser@(db_service)/article
+    depends_on:
+      - database
+    ports:
+      - '9000:9000'
+    networks:
+      - backend
+
+# Names our volume
+volumes:
+  backend_db:
+
+networks:
+  backend:
+    driver: bridge

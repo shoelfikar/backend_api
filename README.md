@@ -15,4 +15,20 @@ Before you begin, make sure you have the following installed on your system:
 
    ```bash
    git clone [https://github.com/shoelfikar/backend_api.git]
-   cd myapp-docker-compose
+   cd backend_api
+
+2. Running Docker Compose
+    ```bash
+  docker compose up -d
+
+## Manual Start Project
+1. Download Dependency
+
+   ```bash
+   cd backend_api
+   go mod tidy
+   go mod download;go mod vendor;go mod verify
+
+2. Running Project
+    ```bash
+  go run main.go

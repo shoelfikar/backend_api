@@ -3,7 +3,7 @@ services:
   backend_api:
     container_name: backend_api
     image: backend_api:latest
-    depends_on:
+    links:
       - db
     networks:
       - backend_api_network

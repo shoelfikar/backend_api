@@ -2,14 +2,12 @@ package app
 
 import (
 	"database/sql"
-	"fmt"
 	"time"
 
 	"github.com/shoelfikar/golang_backend_api/helper"
 )
 
 func NewDB() *sql.DB {
-	fmt.Println(helper.GetViperEnvVariable("DB_URL"))
 	db, err := sql.Open("mysql", helper.GetViperEnvVariable("DB_URL"))
 	helper.PanicIfError(err)
 

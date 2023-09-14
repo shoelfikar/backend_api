@@ -17,7 +17,12 @@ Before you begin, make sure you have the following installed on your system:
    git clone https://github.com/shoelfikar/backend_api
    cd backend_api
 
-2. Running Docker Compose
+2. Build Docker image
+
+   ```bash
+   docker build -t backend_api:latest .
+
+3. Running Docker Compose
     ```bash
     docker compose up -d
 
@@ -29,6 +34,12 @@ Before you begin, make sure you have the following installed on your system:
    go mod tidy
    go mod download;go mod vendor;go mod verify
 
-2. Running Project
+2. Add Database Credential in Env File
+
+   ```bash
+   DB_URL=user:password@(ip:port)/database
+   MIGRATE_URL=mysql://user:password@tcp(ip:port)/database
+
+3. Running Project
     ```bash
     go run main.go

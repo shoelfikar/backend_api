@@ -14,5 +14,5 @@ Before you begin, make sure you have the following installed on your system:
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/yourusername/myapp-docker-compose.git
+   git clone [https://github.com/shoelfikar/backend_api.git]
    cd myapp-docker-compose

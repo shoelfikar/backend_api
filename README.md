@@ -1,4 +1,4 @@
-# MyApp Docker Compose Setup
+# Backend API Setup and running
 
 This repository contains the Docker Compose configuration to easily run and manage the MyApp application using Docker containers.
 

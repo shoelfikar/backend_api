@@ -66,6 +66,11 @@ func (a *articleRepository) GetArticles(limit int, offset int) []*model.Article 
 		helper.PanicIfError(errQuery)
 	}
 
+	if !rows.Next() {
+		panicErr := model.NotFoundError{Error: "Data not found"}
+		panic(panicErr)
+	}
+
 	for rows.Next() {
 		post := model.Article{}
 

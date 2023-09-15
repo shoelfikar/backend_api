@@ -3,7 +3,9 @@ services:
   backend_api:
     container_name: backend_api
     image: backend_api:latest
-    links:
+    restart: on-failure
+    build: .
+    depends_on:
       - db
     networks:
       - backend_api_network
@@ -32,7 +34,7 @@ services:
     command: --init-file /docker-entrypoint-initdb.d/init.sql
     ports:
       # <Port exposed> : < MySQL Port running inside container>
-      - '3306:3306'
+      - '3308:3306'
     expose:
       # Opens port 3306 on the container
       - '3306'
@@ -40,6 +42,7 @@ services:
     volumes:
       - mysql_db_api:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
 volumes:
   mysql_db_api:
 

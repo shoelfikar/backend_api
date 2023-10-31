@@ -69,8 +69,8 @@
             })
             .then(function (response) {
                 if(response.data.code == 200) {
-                    localStorage.setItem("username", response.data.username)
-                    localStorage.setItem("token", response.data.token)
+                    localStorage.setItem("username", response.data.data.username)
+                    localStorage.setItem("token", response.data.data.token)
                     window.location = "/";
                 }
             })

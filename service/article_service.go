@@ -39,7 +39,7 @@ func (a *articleService) GetArticles(limit int, offset int) []*model.Article {
 	defaultLimit := 10
 	defaultOffset := 0
 
-	if limit != 0 && offset != 0 {
+	if limit != 0 {
 		defaultLimit = limit
 		defaultOffset = offset
 	}

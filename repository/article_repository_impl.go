@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"fmt"
 
 	"github.com/shoelfikar/golang_backend_api/helper"
 	"github.com/shoelfikar/golang_backend_api/model"
@@ -47,15 +48,15 @@ func (a *articleRepository) CreateArticle(post *model.Article) *model.Article {
 func (a *articleRepository) GetArticles(limit int, offset int) []*model.Article {
 	DB := a.DB
 
-	ctx := context.Background()
+	// ctx := context.Background()
 
 	var posts []*model.Article
 
-	query := "SELECT title,content,category,status FROM posts ORDER BY id DESC LIMIT ? OFFSET ?"
+	query := fmt.Sprintf("SELECT id,title,content,category,status FROM posts ORDER BY id DESC LIMIT %d OFFSET %d ", limit, offset)
 
 
 
-	rows , errQuery := DB.QueryContext(ctx, query, &limit, &offset)
+	rows, errQuery := DB.Query(query)
 
 	if errQuery != nil {
 		if errQuery == sql.ErrNoRows {
@@ -65,20 +66,20 @@ func (a *articleRepository) GetArticles(limit int, offset int) []*model.Article 
 
 		helper.PanicIfError(errQuery)
 	}
+	
 
-	if !rows.Next() {
-		panicErr := model.NotFoundError{Error: "Data not found"}
-		panic(panicErr)
-	}
+	
+	defer rows.Close()
 
 	for rows.Next() {
 		post := model.Article{}
 
-		rows.Scan(&post.Title, &post.Content, &post.Category, &post.Status)
+		rows.Scan(&post.Id, &post.Title, &post.Content, &post.Category, &post.Status)
 
 		posts = append(posts, &post)
 
 	}
+
 
 	return posts
 }

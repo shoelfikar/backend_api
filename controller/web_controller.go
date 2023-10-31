@@ -7,7 +7,9 @@ import (
 	"github.com/shoelfikar/golang_backend_api/helper"
 )
 
-type webbController struct{}
+type webbController struct{
+	
+}
 
 type WebController interface{
 	LoginWebController(w http.ResponseWriter, r *http.Request)
